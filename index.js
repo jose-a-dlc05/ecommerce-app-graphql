@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-// Relating data one to many
+// Relating data: Many to one
 
 const products = [
 	{
@@ -126,6 +126,7 @@ const typeDefs = gql`
 		price: Float!
 		image: String!
 		onSale: Boolean!
+		category: Category
 	}
 
 	type Category {
@@ -161,6 +162,12 @@ const resolvers = {
 		products: (parent, args, context) => {
 			const { id: categoryId } = parent;
 			return products.filter((product) => product.categoryId === categoryId);
+		},
+	},
+	Product: {
+		category: (parents, args, context) => {
+			const { categoryId } = parents;
+			return categories.find((category) => category.id === categoryId);
 		},
 	},
 };
