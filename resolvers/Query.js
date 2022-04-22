@@ -2,17 +2,11 @@ exports.Query = {
 	hello: () => {
 		return ['World!!!'];
 	},
-	products: () => {
-		return products;
+	products: (parent, args, { products }) => products,
+	product: (parent, { id: productId }, { products }) => {
+		return products.find((product) => product.id === productId);
 	},
-	product: (parent, { id: productId }, context) => {
-		const product = products.find((product) => product.id === productId);
-		if (!product) return null;
-		return product;
-	},
-	categories: () => {
-		return categories;
-	},
+	categories: (parent, args, { categories }) => categories,
 	category: (parent, { id }, context) => {
 		return categories.find((category) => category.id === id);
 	},
