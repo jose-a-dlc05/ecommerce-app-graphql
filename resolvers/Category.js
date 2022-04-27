@@ -1,5 +1,6 @@
 exports.Category = {
-	products: ({ id: categoryId }, { filter }, { products, reviews }) => {
+	products: ({ id: categoryId }, { filter }, { db }) => {
+		const { products, reviews } = db;
 		const categoryProducts = products.filter(
 			(product) => product.categoryId === categoryId
 		);
